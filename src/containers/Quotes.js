@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import QuoteCard from '../components/QuoteCard';
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import QuoteCard from "../components/QuoteCard"
 
 class Quotes extends Component {
-
   render() {
+    const quoteCards = this.props.quotes.map((quote, index) => (
+      <QuoteCard quote={quote} key={index} />
+    ))
     return (
       <div>
         <hr />
@@ -14,18 +16,18 @@ class Quotes extends Component {
         <hr />
         <div className="container">
           <div className="row">
-            <div className="col-md-4">
-              {/* 
-                TODO: 
-
-                Render Quotes With QuoteCard component and pass down callback props for removing, upvoting and downvoting quotes
-               */}
-            </div>
+            <div className="col-md-4">{quoteCards}</div>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default connect(null, {})(Quotes);
+const mapStateToProps = state => {
+  return {
+    quotes: state.quotes
+  }
+}
+
+export default connect(mapStateToProps, {})(Quotes)
